@@ -10,10 +10,10 @@ class AddFrontendRequirements < SeedMigration::Migration
     ]
 
     requirements_list.each do |requirement|
-      new_req = Requirement.create(name: requirement)
+      new_req = Requirement.find_or_create_by(name: requirement)
       career = Career.where(name: "Desenvolvedor Frontend").first
 
-      CareerRequirement.create(career_id: career.id, requirement_id: new_req.id)
+      CareerRequirement.find_or_create_by(career_id: career.id, requirement_id: new_req.id)
     end
   end
 
