@@ -18,6 +18,8 @@ gem 'puma', '~> 3.11'
 gem 'rb-readline'
 gem 'pry-rails'
 
+gem 'seed_migration'
+
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 
