@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  enabled: false
+  career: one
+  requirement: one
+
+two:
+  enabled: false
+  career: two
+  requirement: two
