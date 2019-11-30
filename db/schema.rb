@@ -10,13 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_30_013252) do
+ActiveRecord::Schema.define(version: 2019_11_30_013410) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "career_requirements", force: :cascade do |t|
-    t.boolean "enabled"
+    t.boolean "enabled", default: true
     t.bigint "career_id"
     t.bigint "requirement_id"
     t.datetime "created_at", null: false
@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 2019_11_30_013252) do
   end
 
   create_table "requirement_contents", force: :cascade do |t|
-    t.boolean "enabled"
+    t.boolean "enabled", default: true
     t.bigint "requirement_id"
     t.bigint "content_id"
     t.datetime "created_at", null: false
@@ -58,7 +58,7 @@ ActiveRecord::Schema.define(version: 2019_11_30_013252) do
   end
 
   create_table "user_requirements", force: :cascade do |t|
-    t.boolean "finished"
+    t.boolean "finished", default: false
     t.bigint "user_id"
     t.bigint "requirement_id"
     t.datetime "created_at", null: false
