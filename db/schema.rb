@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_30_012759) do
+ActiveRecord::Schema.define(version: 2019_11_30_013252) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,16 @@ ActiveRecord::Schema.define(version: 2019_11_30_012759) do
     t.string "image_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "requirement_contents", force: :cascade do |t|
+    t.boolean "enabled"
+    t.bigint "requirement_id"
+    t.bigint "content_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["content_id"], name: "index_requirement_contents_on_content_id"
+    t.index ["requirement_id"], name: "index_requirement_contents_on_requirement_id"
   end
 
   create_table "requirements", force: :cascade do |t|
@@ -68,6 +78,8 @@ ActiveRecord::Schema.define(version: 2019_11_30_012759) do
 
   add_foreign_key "career_requirements", "careers"
   add_foreign_key "career_requirements", "requirements"
+  add_foreign_key "requirement_contents", "contents"
+  add_foreign_key "requirement_contents", "requirements"
   add_foreign_key "user_requirements", "requirements"
   add_foreign_key "user_requirements", "users"
 end
