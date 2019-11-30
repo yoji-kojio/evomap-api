@@ -4,6 +4,7 @@ Rails.application.routes.draw do
       resources :users
       resources :careers
       resources :requirements
+      resources :contents
     end
   end
 end
