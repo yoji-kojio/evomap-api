@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       controller :users do
         get 'users/:username/get-career' => :get_user_career, as: :get_user_career
         get 'users/:username/get-requirements' => :get_user_requirements, as: :get_user_requirements
+        get 'users/:username/get-recommended-contents' => :get_user_recommended_contents, as: :get_user_recommended_contents
       end
     end
   end

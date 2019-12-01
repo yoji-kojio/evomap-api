@@ -1,6 +1,10 @@
 class Api::V1::UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
-  before_action :set_user_by_username, only: [:get_user_career, :get_user_requirements]
+  before_action :set_user_by_username, only: [
+    :get_user_career,
+    :get_user_requirements,
+    :get_user_recommended_contents
+  ]
 
   # GET /api/v1/users
   def index
@@ -47,13 +51,24 @@ class Api::V1::UsersController < ApplicationController
   def get_user_requirements
     all_requirements = @user.requirements
     finished_requirements = @user.requirements.where(user_requirements: { finished: true })
+    not_finished_requirements = @user.requirements.where(user_requirements: { finished: false })
 
     requirements_data = {
       'all_requirements' => all_requirements,
       'finished_requirements' => finished_requirements,
+      'not_finished_requirements' => not_finished_requirements,
     }
 
     render json: requirements_data.presence || {}
+  end
+
+  def get_user_recommended_contents
+    not_finished_requirements = @user.requirements.where(user_requirements: { finished: false })
+
+    contents_list = not_finished_requirements.map { |requirement| requirement.contents }
+    recommended_contents = contents_list.flatten
+
+    render json: recommended_contents.presence || {}
   end
 
   private
