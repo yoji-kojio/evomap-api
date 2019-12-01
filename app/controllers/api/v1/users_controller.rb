@@ -45,8 +45,15 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def get_user_requirements
-    requirements = @user.requirements
-    render json: requirements.presence || {}
+    all_requirements = @user.requirements
+    finished_requirements = @user.requirements.where(user_requirements: { finished: true })
+
+    requirements_data = {
+      'all_requirements' => all_requirements,
+      'finished_requirements' => finished_requirements,
+    }
+
+    render json: requirements_data.presence || {}
   end
 
   private
