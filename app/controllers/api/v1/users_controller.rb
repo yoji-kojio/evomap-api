@@ -1,5 +1,6 @@
 class Api::V1::UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
+  before_action :set_user_by_username, only: [:get_user_career, :get_user_requirements]
 
   # GET /api/v1/users
   def index
@@ -38,6 +39,16 @@ class Api::V1::UsersController < ApplicationController
     @user.destroy
   end
 
+  def get_user_career
+    career = @user.careers.first
+    render json: career.presence || {}
+  end
+
+  def get_user_requirements
+    requirements = @user.requirements
+    render json: requirements.presence || {}
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
@@ -45,8 +56,12 @@ class Api::V1::UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
+  def set_user_by_username
+    @user = User.find_by(username: params[:username])
+  end
+
   # Only allow a trusted parameter "white list" through.
   def user_params
-    params.require(:user).permit(:name, :email, :description)
+    params.require(:user).permit(:name, :email, :description, :username)
   end
 end
