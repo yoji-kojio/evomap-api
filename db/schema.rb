@@ -10,10 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_01_153706) do
+ActiveRecord::Schema.define(version: 2019_12_02_014503) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "badges", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "career_requirements", force: :cascade do |t|
     t.boolean "enabled", default: true
@@ -63,6 +69,15 @@ ActiveRecord::Schema.define(version: 2019_12_01_153706) do
     t.datetime "migrated_on"
   end
 
+  create_table "user_badges", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "badge_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["badge_id"], name: "index_user_badges_on_badge_id"
+    t.index ["user_id"], name: "index_user_badges_on_user_id"
+  end
+
   create_table "user_careers", force: :cascade do |t|
     t.boolean "enabled", default: true
     t.bigint "user_id"
@@ -97,6 +112,8 @@ ActiveRecord::Schema.define(version: 2019_12_01_153706) do
   add_foreign_key "career_requirements", "requirements"
   add_foreign_key "requirement_contents", "contents"
   add_foreign_key "requirement_contents", "requirements"
+  add_foreign_key "user_badges", "badges"
+  add_foreign_key "user_badges", "users"
   add_foreign_key "user_careers", "careers"
   add_foreign_key "user_careers", "users"
   add_foreign_key "user_requirements", "requirements"
