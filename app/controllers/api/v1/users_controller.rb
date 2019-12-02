@@ -52,6 +52,7 @@ class Api::V1::UsersController < ApplicationController
     all_requirements = @user.requirements
     finished_requirements = @user.requirements.where(user_requirements: { finished: true })
     not_finished_requirements = @user.requirements.where(user_requirements: { finished: false })
+    user_requirements = @user.user_requirements
 
     requirements_data = {
       'all_requirements' => all_requirements,
