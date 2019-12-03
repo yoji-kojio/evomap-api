@@ -5,4 +5,8 @@ class User < ApplicationRecord
   has_many :requirements, through: :user_requirements
   has_many :user_badges
   has_many :badges, through: :user_badges
+
+  validates :name, presence: true
+  validates :username, presence: true
+  validates :email, presence: true
 end
