@@ -58,6 +58,7 @@ class Api::V1::UsersController < ApplicationController
       'all_requirements' => all_requirements,
       'finished_requirements' => finished_requirements,
       'not_finished_requirements' => not_finished_requirements,
+      'user_requirements' => user_requirements,
     }
 
     render json: requirements_data.presence || {}
